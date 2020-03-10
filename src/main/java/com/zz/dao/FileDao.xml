@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.zz.dao.FileDao">
+ 	<insert id="insertFile" parameterType="myFile">
+ 		insert into myFile(fName,fDescribe,size,userId) values(
+ 		#{file.fName,jdbcType=VARCHAR},
+ 		#{file.fDescribe,jdbcType=VARCHAR},
+ 		#{file.size,jdbcType=VARCHAR},
+ 		#{file.userId,jdbcType=INTEGER})
+ 	</insert>
+ 	<select id="getCount" resultType="java.lang.Integer">
+ 		select count(*) from myFile where userId = #{userId,jdbcType = INTEGER}
+ 			<if test="fName != null and fName != ''">
+ 			 and fName like CONCAT("%",#{fName,jdbcType=VARCHAR},"%")
+ 			</if>
+ 	</select>
+ 	<select id="queryFiles" resultType="myFile">
+ 		select * from myFile where userId = #{userId,jdbcType=INTEGER} 
+ 			<if test="fName != null and fName != ''">
+ 			  and fName like CONCAT("%",#{fName,jdbcType=VARCHAR},"%")
+ 			</if>
+ 		limit #{1,jdbcType=INTEGER},#{2,jdbcType=INTEGER};
+ 	</select>
+ 	<select id="queryfNameByfId" resultType="java.lang.String">
+ 		select fName from myFile where fId = #{fId,jdbcType=INTEGER}
+ 	</select>
+ 	<update id="updateFile" parameterType="myFile">
+ 		update myFile
+ 		<set>
+ 		<!-- <trim prefix="set" suffixOverrides=",">suffixOverrides=","表示删除最后一个逗号 -->
+ 			<if test="file.fName!=null and file.fName!=''">
+ 				fName=#{file.fName,jdbcType=VARCHAR},
+ 			</if>
+ 			<if test="file.fDescribe != null and file.fDescribe != ''">
+ 				fDescribe=#{file.fDescribe,jdbcType=VARCHAR}
+ 			</if>
+ 		</set>
+ 		where fId = #{file.fId,jdbcType=INTEGER} and userId =#{file.userId,jdbcType=INTEGER}
+ 	</update>
+ 	<delete id="delete">
+ 		delete from myFile where fId = #{fId,jdbcType=INTEGER}
+ 	</delete>
+ </mapper>

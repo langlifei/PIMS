@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace = "com.zz.dao.FriendsDao">
+ 	<insert id="insertFriends">
+ 		insert into friends(fName,fPhone,fAddress,relation,userId) values(
+ 		#{friends.fName,jdbcType=VARCHAR},
+ 		#{friends.fPhone,jdbcType=VARCHAR},
+ 		#{friends.fAddress,jdbcType=VARCHAR},
+ 		#{friends.relation,jdbcType=VARCHAR},
+ 		#{friends.userId,jdbcType=INTEGER})
+ 	</insert>
+ 	<select id="queryFriends" resultType="Friends">
+ 		select * from friends where userId = #{userId,jdbcType=INTEGER} 
+ 			<if test="fName != null and fName != ''">
+ 			  and fName like CONCAT("%",#{fName,jdbcType=VARCHAR},"%")
+ 			</if>
+ 		limit #{1,jdbcType=INTEGER},#{2,jdbcType=INTEGER};
+ 	</select>
+ 	<select id="getTotal" resultType="java.lang.Integer">
+ 		select count(*) from friends where userId = #{userId,jdbcType = INTEGER}
+ 			<if test="fName != null and fName != ''">
+ 			 and fName like CONCAT("%",#{fName,jdbcType=VARCHAR},"%")
+ 			</if>
+ 	</select>
+ 	<update id="updateFriends" parameterType="Friends">
+ 		update friends
+ 		<set>
+ 		<!-- <trim prefix="set" suffixOverrides=",">suffixOverrides=","表示删除最后一个逗号 -->
+ 			<if test="friends.fName!=null and friends.fName!=''">
+ 				fName=#{friends.fName,jdbcType=VARCHAR},
+ 			</if>
+ 			<if test="friends.fPhone != null and friends.fPhone != ''">
+ 				fPhone=#{friends.fPhone,jdbcType=VARCHAR},
+ 			</if>
+ 			<if test="friends.fAddress != null and friends.fAddress != ''">
+ 				fAddress=#{friends.fAddress,jdbcType=VARCHAR},
+ 			</if>
+ 			<if test="friends.relation != null and friends.relation != ''">
+ 				relation=#{friends.relation,jdbcType=VARCHAR}
+ 			</if>
+ 		</set>
+ 		where fId = #{friends.fId,jdbcType=INTEGER} and userId =#{friends.userId,jdbcType=INTEGER}
+ 	</update>
+ 	<delete id="deleteFriendsByfId">
+ 		delete from friends where fId=#{0}
+ 	</delete>
+ </mapper>

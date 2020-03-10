@@ -1,0 +1,30 @@
+#nav li ul{
+	display: none;
+}
+
+#nav li a{
+	border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-color: #e7e7e7;
+}
+
+#nav li ul li a{
+	padding-left: 55px;
+	border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-color: #e7e7e7;
+}
+.table tr td{
+	text-align: center;
+}
+#message{
+	text-align: center;
+	padding-bottom: 8px;
+	color: red;
+	font-weight: bold;
+	display: none;
+}

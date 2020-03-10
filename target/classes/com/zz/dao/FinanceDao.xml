@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.zz.dao.FinanceDao">
+ 	<resultMap type="Ptype" id="p">
+ 		<id property="id" column="pId"/>
+ 		<result property="name" column="pName"/>
+ 	</resultMap>
+ 	<resultMap type="Etype" id="e">
+ 		<id property="id" column="eId"/>
+ 		<result property="name" column="eName"/>
+ 	</resultMap>
+ 	<select id="querypTypeItem" resultMap="p">
+ 		select * from pType
+ 	</select>
+ 	<select id="queryeTypeItem" resultMap="e">
+ 		select * from eType
+ 	</select>
+ 	<insert id="insertAccounts" parameterType="java.util.List">
+ 		insert into finanicialList(amount,IncomeOrExpense,eId,dateTime,pId,notes,userId)
+ 		values 
+ 		<foreach collection="list" item = "item" index = "index" separator=",">
+ 			(#{item.amount,jdbcType=DOUBLE},
+ 			#{item.IncomeOrExpense,jdbcType=BIT},
+ 			#{item.eType.id,jdbcType=INTEGER},
+ 			#{item.dateTime,jdbcType=TIMESTAMP},
+ 			#{item.pType.id,jdbcType=INTEGER},
+ 			#{item.notes,jdbcType=VARCHAR},
+ 			#{item.userId,jdbcType=INTEGER})
+ 		</foreach>
+ 	</insert>
+ 	<select id="queryFinance" resultType="com.zz.vo.Finance">
+ 		select fId,amount,eName,dateTime,pName,notes from v_finance where userId = #{userId,jdbcType=INTEGER} 
+			 	and dateTime BETWEEN #{beginTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
+			<if test="flag == 0 or flag == 1">
+			and IncomeOrExpense=#{flag,jdbcType=INTEGER}
+			</if>
+ 		 limit #{2,jdbcType=INTEGER},#{3,jdbcType=INTEGER};
+ 	</select>
+ 	<select id="getCount" resultType="java.lang.Integer">
+ 		select count(*) from finanicialList where userId = #{userId,jdbcType=INTEGER}
+			 	and dateTime BETWEEN #{beginTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
+			<if test="flag == 0 or flag == 1">
+				and IncomeOrExpense=#{flag,jdbcType=INTEGER}
+			</if>
+ 	</select>
+ </mapper>

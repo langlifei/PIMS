@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace = "com.zz.dao.LogDao">
+ 	<insert id="insertLog">
+ 		insert into Log(logName,logIntro,content,dateTime,userId) values(
+ 		#{log.logName,jdbcType=VARCHAR},
+ 		#{log.logIntro,jdbcType=VARCHAR},
+ 		#{log.content,jdbcType=VARCHAR},
+ 		#{log.dateTime,jdbcType=DATE},
+ 		#{log.userId,jdbcType=INTEGER})
+ 	</insert>
+ 	<select id="queryLog" resultType="Log">
+ 		select * from Log where userId = #{userId,jdbcType=INTEGER}
+ 			<if test="logName != null and logName != ''">
+ 			  and logName LIKE CONCAT("%",#{logName,jdbcType=VARCHAR},"%")
+ 			</if>
+ 		limit #{1,jdbcType=INTEGER},#{2,jdbcType=INTEGER};
+ 	</select>
+ 	<select id="getTotal" resultType="java.lang.Integer">
+ 		select count(*) from Log where userId = #{userId,jdbcType=INTEGER}
+ 			<if test="logName != null and logName != ''">
+ 				and logName LIKE CONCAT("%",#{logName,jdbcType=VARCHAR},"%")
+ 			</if>
+ 	</select>
+ 	<update id="updateLog" parameterType="Log">
+ 		update Log
+ 		<set>
+ 		<!-- <trim prefix="set" suffixOverrides=",">suffixOverrides=","表示删除最后一个逗号 -->
+ 			<if test="log.logName!=null and log.logName!=''">
+ 				logName=#{log.logName,jdbcType=VARCHAR},
+ 			</if>
+ 			<if test="log.logIntro != null and log.logIntro != ''">
+ 				logIntro=#{log.logIntro,jdbcType=VARCHAR},
+ 			</if>
+ 			<if test="log.dateTime != null and log.dateTime != ''">
+ 				dateTime=#{log.dateTime,jdbcType=DATE},
+ 			</if>
+ 			<if test="log.content != null and log.content != ''">
+ 				content=#{log.content,jdbcType=VARCHAR},
+ 			</if>
+ 		</set>
+ 		where logId = #{log.logId,jdbcType=INTEGER} and userId =#{log.userId,jdbcType=INTEGER}
+ 	</update>
+ 	<delete id="deleteLogBylogId">
+ 		delete from Log where logId=#{0}
+ 	</delete>
+ </mapper>

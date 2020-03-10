@@ -1,0 +1,30 @@
+tml,body{
+		width: 100%;
+		height:100%;
+		margin:0px;
+		padding:0px
+	}
+	#basicInfo{
+		height: 100%;
+		width: 100%;
+	}
+	#basiInfo ul,li{
+		list-style: none;
+	}
+	.table{
+		width: 50%;
+		height:80%;
+		background: #FFFFFF;
+	}
+	.table tr td{
+			padding: 10px;
+			width: 45%;
+			height: 17%;
+			text-align: center;
+			background: rgba(0, 188, 212, 0.5);
+	}
+	.table tr td strong{
+		text-align: center;
+		width:60px;
+		height:60px
+	}
