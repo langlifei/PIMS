@@ -4,7 +4,7 @@
 
 #### 功能特性
 
-![功能特性](https://github.com/langlifei/PIMS/raw/screenshots/features.png)
+![功能特性](https://github.com/langlifei/PIMS/raw/master/screenshots/features.png)
 
 #### 环境依赖
 
