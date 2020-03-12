@@ -18,11 +18,12 @@
 #### 页面展示
 
 1. 登录
-
-   ![login](https://github.com/langlifei/PIMS/raw/screenshots/login.png)
-
+   ![login](https://github.com/langlifei/PIMS/raw/master/screenshots/login.png)
 2. 首页
-
+   ![home](https://github.com/langlifei/PIMS/raw/master/screenshots/home.png)
 3. 财务管理
-
+   ![finance](https://github.com/langlifei/PIMS/raw/master/screenshots/finance.png)
+   ![finance_1](https://github.com/langlifei/PIMS/raw/master/screenshots/finance_1.png)
 4. 文件管理
+   ![file](https://github.com/langlifei/PIMS/raw/master/screenshots/file.png)
+   ![file_1](https://github.com/langlifei/PIMS/raw/master/screenshots/file_1.png)
