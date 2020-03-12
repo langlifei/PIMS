@@ -14,6 +14,7 @@
 2. 前端框架：Jquery(3.3.1)+Bootstrap(3.3.7)
 3. 数据库：MySQL(5.7)
 4. 服务器：Tomcat(7.0)
+开发工具：MyEclipse Professional 2014
 
 #### 页面展示
 
